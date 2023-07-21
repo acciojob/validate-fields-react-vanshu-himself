@@ -1,37 +1,35 @@
 
-import React, { useState } from "react";
+import React,{useState} from "react";
 import './../styles/App.css';
 
 const App = () => {
-  let[user,setUser]=useState({name:"",password:""})
-  let[error,setError]=useState("");
-  function validator(e){
-    e.preventDefault();
-    if(user.name=="" || user.password==""){
-      setError("Both username and password are required")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(!username || !password){
+      setError("Both username and password are required.")
+    }
+    else{
+      setError("");
     }
   }
   return (
-  
     <div>
-        <form onSubmit={validator}>
-        <label for="name">Username:</label>
-        <input 
-        type="text"
-        name="name"
-         onChange={(e)=>setUser(...user,user.name=e.target.value)}
-        />
-        <label for="password">Password:</label>
-        <input
-        type="password"
-        name="password"
-        onChange={(e)=>setUser(...user,user.password=e.target.value)}
-
-
-        />
-        <h5 id="errorMeassage">{error}</h5>
-        <button type="submit">Login</button>
+        {/* Do not remove the main div */}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username: </label>
+          <input type="text" id="username" onChange={(event) => setUsername(event.target.value)} />
+          <br/>
+          <br/>
+          <label htmlFor="password" >Password: </label>
+          <input type="password" id="password" onChange={(event) => setPassword(event.target.value)} />
+          {
+            error ? <p id="errorMessage">{error}</p> : <p></p>
+          }
+          <button type="submit">Login</button>
         </form>
     </div>
   )
